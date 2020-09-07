@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import routes from './routes.js'
+import mongodb from '../database/mongodb.js'
 
 export default class Server {
     app = express()
@@ -27,8 +28,11 @@ export default class Server {
     }
 
     startOnPort (port) {
-        this.app.listen(port, function () {
-            console.log(`Listening on ${port}`)
+        mongodb.connection.on('open', () => {
+            console.log('MongoDB Database connected')
+            this.app.listen(port, function () {
+                console.log(`Listening on ${port}`)
+            })
         })
     }
 }

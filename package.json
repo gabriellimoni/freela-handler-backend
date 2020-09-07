@@ -8,7 +8,7 @@
     "start": "",
     "start:dev": "nodemon src/index.js -L",
     "dev": "npm run build-dev-mongo && npm run build-dev-api",
-    "build-dev-api": "docker-compose -f docker-compose.dev.yaml up api",
+    "build-dev-api": "docker-compose -f docker-compose.dev.yaml up --build api",
     "build-dev-mongo": "docker-compose -f docker-compose.dev.yaml up -d mongodb",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +21,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.10.3"
   }
 }
