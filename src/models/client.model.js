@@ -1,4 +1,4 @@
-import mongoose from '../database/mongodb.js'
+import mongoose from 'mongoose'
 
 const ClientSchema = new mongoose.Schema({
     name: { type: String, required: true },

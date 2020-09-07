@@ -10,13 +10,20 @@
     "dev": "npm run build-dev-mongo && npm run build-dev-api",
     "build-dev-api": "docker-compose -f docker-compose.dev.yaml up --build api",
     "build-dev-mongo": "docker-compose -f docker-compose.dev.yaml up -d mongodb",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --testTimeout 15000 --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "superagent": "^6.1.0",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
