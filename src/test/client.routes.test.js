@@ -1,7 +1,6 @@
 import ClientModel from '../models/client.model.js'
 import request from "supertest"
 import Server from "../server/server.js"
-import { response } from 'express'
 const server = new Server()
 let app = null
 
