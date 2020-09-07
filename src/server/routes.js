@@ -6,13 +6,13 @@ const router = express.Router()
 
 // Testing route
 router.get('/', (req, res) => {
-    res.send('Hello World')
+    res.send('Hello World asdasd')
 })
 
 // client routes
 router
     .get('/clients', clientController.list)
     .post('/clients', clientController.create)
-    .put('/clients', clientController.update)
+    .put('/clients/:id', clientController.update)
 
 export default router
