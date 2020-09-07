@@ -12,8 +12,15 @@ export default class ClientController {
         }
     }
     
-    update (req, res) {
-        res.send('Update Client')
+    async update (req, res) {
+        try {
+            const clientId = req.params.id
+            const clientData = req.body
+            const updatedClient = await clientRepository.updateById(clientId, clientData)
+            return res.status(200).json(updatedClient)
+        } catch (error) {
+            return res.status(400).send(error)
+        }
     }
     
     async list (req, res) {

@@ -9,7 +9,7 @@ export default class ClientRepository {
             const mappedClientData = this._mapClientData(newClient)
             return mappedClientData
         } catch (error) {
-            this._handleError
+            this._handleError(error)
         }
     }
 
@@ -20,7 +20,25 @@ export default class ClientRepository {
             const mappedClientsData = clients.map(this._mapClientData)
             return mappedClientsData
         } catch (error) {
-            this._handleError
+            this._handleError(error)
+        }
+    }
+
+    async updateById (clientId, updateClientData) {
+        try {
+            const clientToUpdate = await ClientModel.findById(clientId).select('_id')
+            if (!clientToUpdate) return this._handleNotFoundClient(clientId)
+
+            await ClientModel.updateOne(
+                { _id: clientId }, 
+                updateClientData
+            )
+
+            const updatedClient = await ClientModel.findById(clientId)
+            const mappedUpdatedClient = this._mapClientData(updatedClient)
+            return mappedUpdatedClient
+        } catch (error) {
+            this._handleError(error)
         }
     }
 
@@ -33,6 +51,11 @@ export default class ClientRepository {
         mappedClient.notes.forEach(note => delete note._id)
 
         return mappedClient
+    }
+
+    _handleNotFoundClient (clientId) {
+        // todo: use some patter to handle this error
+        throw { message: `Client not found with this ID: ${clientId}` }
     }
 
     _handleError (error) {
