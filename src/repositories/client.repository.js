@@ -9,8 +9,18 @@ export default class ClientRepository {
             const mappedClientData = this._mapClientData(newClient)
             return mappedClientData
         } catch (error) {
-            // Validates error
-            throw error
+            this._handleError
+        }
+    }
+
+    async listAll () {
+        try {
+            const clients = await ClientModel.find()
+            
+            const mappedClientsData = clients.map(this._mapClientData)
+            return mappedClientsData
+        } catch (error) {
+            this._handleError
         }
     }
 
@@ -23,5 +33,10 @@ export default class ClientRepository {
         mappedClient.notes.forEach(note => delete note._id)
 
         return mappedClient
+    }
+
+    _handleError (error) {
+        // todo: Handle mongodb and other errors
+        throw error
     }
 }

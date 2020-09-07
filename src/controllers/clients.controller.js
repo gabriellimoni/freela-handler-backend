@@ -6,7 +6,7 @@ export default class ClientController {
         try {
             const client = req.body
             const newClient = await clientRepository.create(client)
-            return res.json(newClient)
+            return res.status(201).json(newClient)
         } catch (error) {
             return res.status(400).send(error)
         }
@@ -16,7 +16,12 @@ export default class ClientController {
         res.send('Update Client')
     }
     
-    list (req, res) {
-        res.send('List Client')
+    async list (req, res) {
+        try {
+            const clients = await clientRepository.listAll()
+            return res.status(200).json(clients)
+        } catch (error) {
+            return res.status(500).send(error)
+        }
     }
 }
