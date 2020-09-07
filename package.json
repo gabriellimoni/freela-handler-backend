@@ -10,7 +10,8 @@
     "dev": "npm run build-dev-mongo && npm run build-dev-api",
     "build-dev-api": "docker-compose -f docker-compose.dev.yaml up --build api",
     "build-dev-mongo": "docker-compose -f docker-compose.dev.yaml up -d mongodb",
-    "test": "jest --testTimeout 15000 --detectOpenHandles"
+    "test": "jest --testTimeout 15000 --detectOpenHandles",
+    "test:coverage": "jest --testTimeout 15000 --detectOpenHandles --coverage"
   },
   "keywords": [],
   "author": "",
