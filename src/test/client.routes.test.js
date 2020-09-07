@@ -25,6 +25,9 @@ describe ('Testing creating clients', () => {
         app = await server.getAppForTesting()
         await ClientModel.deleteMany({})
     })
+    afterAll(async () => {
+        await server.closeAppForTesting()
+    })
 
     it ('should add new client', (done) => {
         request(app)

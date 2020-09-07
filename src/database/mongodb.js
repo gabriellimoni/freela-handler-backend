@@ -5,6 +5,9 @@ export default class MongoDatabase {
     async connect () {
         await mongoose.connect(mongodbUrl, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
     }
+    async disconnect () {
+        await mongoose.disconnect()
+    }
 
     connection = mongoose.connection
 }

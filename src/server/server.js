@@ -47,4 +47,7 @@ export default class Server {
             })
         })
     }
+    async closeAppForTesting () {
+        await mongoDB.disconnect()
+    }
 }
