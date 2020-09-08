@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import routes from './routes.js'
+import V1Routes from './v1Routes.js'
 import MongoDB from '../database/mongodb.js'
 const mongoDB = new MongoDB()
 
@@ -25,7 +25,9 @@ export default class Server {
     }
 
     _initializeV1Routes () {
-        this.app.use('/v1', routes)
+        const v1Routes = new V1Routes()
+        const v1Router = v1Routes.getRouter()
+        this.app.use('/v1', v1Router)
     }
 
     startOnPort (port) {
