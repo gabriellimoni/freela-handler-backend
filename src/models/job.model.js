@@ -5,6 +5,7 @@ const JobSchema = new mongoose.Schema({
     name: { type: String, required: true },
     // userId: { type: ObjectId, required: true }, // leave without this while there is no user to handle
     description: { type: String },
+    status: { type: String, default: 'active' },
     clients: [{ type: ObjectId }],
     dueDate: { type: Date },
     price: { type: Number },
