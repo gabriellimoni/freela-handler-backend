@@ -48,7 +48,10 @@ export default class ClientRepository {
         mappedClient.id = client._id
         delete mappedClient._id
         delete mappedClient.__v
-        mappedClient.notes.forEach(note => delete note._id)
+        mappedClient.notes.forEach(note => {
+            note.id = note._id
+            delete note._id
+        })
 
         return mappedClient
     }
