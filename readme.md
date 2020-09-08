@@ -11,6 +11,6 @@ So far, there is only integrated tests calling the API routes and checking a few
 
 ### TODOs
 - Add centralized error handling
-- Add logs and error monitoring (Sentry?)
+- Add logs and error monitoring (Sentry?) - for now its just on file
 - Add routes sanitizers/validators
 - Add user handling with login/logout, refresh token and browser safe
