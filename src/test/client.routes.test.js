@@ -60,4 +60,32 @@ describe ('Testing creating clients', () => {
                 done()
             })
     })
+
+    it ('should return status 400 error for missing email', (done) => {
+        const missingEmailMock = {...clientMock}
+        delete missingEmailMock.email
+        request(app)
+            .post('/v1/clients')
+            .send(missingEmailMock)
+            .then(async response => {
+                const responseStatus = response.status
+                expect(responseStatus).toBe(400)
+
+                done()
+            })
+    })
+
+    it ('should return status 400 error for missing name', (done) => {
+        const missingNameMock = {...clientMock}
+        delete missingNameMock.name
+        request(app)
+            .post('/v1/clients')
+            .send(missingNameMock)
+            .then(async response => {
+                const responseStatus = response.status
+                expect(responseStatus).toBe(400)
+
+                done()
+            })
+    })
 })
