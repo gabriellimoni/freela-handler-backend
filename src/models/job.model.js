@@ -1,5 +1,5 @@
-import mongoose, { SchemaTypes } from 'mongoose'
-const { ObjectId } = SchemaTypes
+import mongoose from 'mongoose'
+const { ObjectId } = mongoose.SchemaTypes
 
 const JobSchema = new mongoose.Schema({
     name: { type: String, required: true },
