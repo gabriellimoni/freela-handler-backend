@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const { ObjectId } = mongoose.SchemaTypes
 
 const JobSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     // userId: { type: ObjectId, required: true }, // leave without this while there is no user to handle
     description: { type: String },
     status: { type: String, default: 'active' },
