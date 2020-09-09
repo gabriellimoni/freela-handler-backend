@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import logRequestMiddleware from '../middlewares/logRequest.middleware.js'
+import errorHandlingMiddleware from '../middlewares/errorHandling.middleware.js'
 import V1Routes from './v1Routes.js'
 import MongoDB from '../database/mongodb.js'
 const mongoDB = new MongoDB()
@@ -15,6 +16,7 @@ export default class Server {
         this._setCors()
         this._setLogCallsMiddleware()
         this._initializeV1Routes()
+        this._initializeErrorHandlingMiddlewares()
     }
 
     _setBodyParser () {
@@ -34,6 +36,10 @@ export default class Server {
         const v1Routes = new V1Routes()
         const v1Router = v1Routes.getRouter()
         this.app.use('/v1', v1Router)
+    }
+
+    _initializeErrorHandlingMiddlewares () {
+        this.app.use(errorHandlingMiddleware)
     }
 
     startOnPort (port) {
