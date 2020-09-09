@@ -1,5 +1,5 @@
 import JobModel from '../models/job.model.js'
-import APIError from '../server/APIError.js'
+import APIError from '../errors/APIError.js'
 
 export default class JobRepository {
     async create (job) {

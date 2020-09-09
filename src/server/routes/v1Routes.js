@@ -1,7 +1,7 @@
 import express from 'express'
-import ClientController from '../controllers/clients.controller.js'
-import JobController from '../controllers/jobs.controller.js'
-import wrapAsync from './wrapAsync.js'
+import ClientController from '../../controllers/clients.controller.js'
+import JobController from '../../controllers/jobs.controller.js'
+import wrapAsync from './helpers/wrapAsync.js'
 
 export default class V1Routes {
     clientController = new ClientController()

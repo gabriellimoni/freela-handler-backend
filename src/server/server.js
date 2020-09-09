@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import logRequestMiddleware from '../middlewares/logRequest.middleware.js'
 import errorHandlingMiddleware from '../middlewares/errorHandling.middleware.js'
-import V1Routes from './v1Routes.js'
+import V1Routes from './routes/v1Routes.js'
 import MongoDB from '../database/mongodb.js'
 const mongoDB = new MongoDB()
 

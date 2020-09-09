@@ -1,4 +1,4 @@
-import APIError from '../server/APIError.js'
+import APIError from '../errors/APIError.js'
 import Logger from '../services/logger.service.js'
 const logger = new Logger('api-error-middleware')
 

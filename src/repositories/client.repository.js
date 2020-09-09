@@ -1,5 +1,5 @@
 import ClientModel from '../models/client.model.js'
-import APIError from '../server/APIError.js'
+import APIError from '../errors/APIError.js'
 
 export default class ClientRepository {
     async create (client) {
