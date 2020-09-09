@@ -1,6 +1,7 @@
 import express from 'express'
 import ClientController from '../controllers/clients.controller.js'
 import JobController from '../controllers/jobs.controller.js'
+import wrapAsync from './wrapAsync.js'
 
 export default class V1Routes {
     clientController = new ClientController()
@@ -22,16 +23,16 @@ export default class V1Routes {
 
     _initializeClientRoutes () {
         this.router
-            .get('/clients', this.clientController.list)
-            .post('/clients', this.clientController.create)
-            .put('/clients/:id', this.clientController.update)
+            .get('/clients', wrapAsync(this.clientController.list))
+            .post('/clients', wrapAsync(this.clientController.create))
+            .put('/clients/:id', wrapAsync(this.clientController.update))
     }
     
     _initializeJobRoutes () {
         this.router
-            .get('/jobs', this.jobController.list)
-            .post('/jobs', this.jobController.create)
-            .put('/jobs/:id', this.jobController.update)
+            .get('/jobs', wrapAsync(this.jobController.list))
+            .post('/jobs', wrapAsync(this.jobController.create))
+            .put('/jobs/:id', wrapAsync(this.jobController.update))
     }
 
     getRouter() {
