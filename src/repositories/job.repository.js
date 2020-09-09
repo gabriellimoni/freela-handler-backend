@@ -1,4 +1,5 @@
 import JobModel from '../models/job.model.js'
+import APIError from '../server/APIError.js'
 
 export default class JobRepository {
     async create (job) {
@@ -57,12 +58,49 @@ export default class JobRepository {
     }
 
     _handleNotFoundJob (jobId) {
-        // todo: use some patter to handle this error
-        throw { message: `Job not found with this ID: ${jobId}` }
+        const apiError = new APIError(
+            `Job not found with this ID: ${jobId}.`,
+            404,
+            'JOB-004'
+        )
+        throw apiError
     }
 
     _handleError (error) {
-        // todo: Handle mongodb and other errors
+        if (error.name == 'ValidationError') {
+            this._handleValidationError(error)
+        } else if (error.name == 'MongoError') {
+            this._handleMongoError(error)
+        }
         throw error
+    }
+
+    _handleValidationError (error) {
+        const apiError = new APIError(
+            error.message,
+            400,
+            'JOB-001',
+        )
+        throw apiError
+    }
+
+    _handleMongoError (error) {
+        let message = error.message
+        let statusCode = 400
+        let referenceCode = 'JOB-002'
+
+        const errorCode = error.code
+        if (errorCode == '11000') {
+            const duplicateKeys = Object.keys(error.keyValue)
+            message = `Duplicated properties: ${duplicateKeys.join(', ')}.`
+            referenceCode = 'JOB-003'
+        }
+
+        const apiError = new APIError(
+            message,
+            statusCode,
+            referenceCode,
+        )
+        throw apiError
     }
 }
