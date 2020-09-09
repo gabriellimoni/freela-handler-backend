@@ -14,7 +14,7 @@ export default class Server {
     constructor() {
         this._setBodyParser()
         this._setCors()
-        this._setLogCallsMiddleware()
+        this._setLogRequestMiddleware()
         this._initializeV1Routes()
         this._initializeErrorHandlingMiddlewares()
     }
@@ -28,7 +28,7 @@ export default class Server {
         this.app.use(cors())
     }
 
-    _setLogCallsMiddleware () {
+    _setLogRequestMiddleware () {
         this.app.use(logRequestMiddleware)
     }
 
