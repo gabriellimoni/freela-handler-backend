@@ -10,6 +10,7 @@ For testing, mantain the attached console of `npm run dev` oppened, then open an
 So far, there is only integrated tests calling the API routes and checking a few assertions.
 
 ### TODOs
+- Deploy backend on Digital Ocean's droplet
 - Add filters to list clients and jobs
 - Add logs and error monitoring (Sentry?) - for now its just on file
 - Add routes sanitizers/validators
