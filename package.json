@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "",
+    "start": "node src/index.js",
     "start:dev": "nodemon src/index.js -L",
     "dev": "npm run build-dev-mongo && npm run build-dev-api",
     "build-dev-api": "docker-compose -f docker-compose.dev.yaml up --build api",
