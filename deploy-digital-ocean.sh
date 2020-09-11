@@ -1,3 +1,5 @@
+rm -rf freela-backend
+
 # Clone repo
 git clone https://github.com/gabriellimoni/freela-handler-backend freela-backend
 cd freela-backend
