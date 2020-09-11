@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+
+  api:
+    container_name: freela_api
+    build: .
+    command: ["npm", "start"]
+    restart: always
+    environment:
+      - MONGODB_URL=mongodb://{SOME-SECURE-USER}:{SOME-SECURE-PASSWD}@mongodb:27017
+    networks:
+      - api-network
+
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - web-root:/var/www/html
+      - ../nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
+    depends_on:
+      - api
+    networks:
+      - api-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    command: certonly --webroot --webroot-path=/var/www/html --email {YOUR-EMAIL} --agree-tos --no-eff-email --force-renewal -d {YOUR-SERVER-DOMAIN}  -d www.{YOUR-SERVER-DOMAIN}
+    
+  mongodb:
+    image: mongo
+    container_name: freela_mongodb
+    restart: always
+    ports:
+      - "27017"
+    volumes:
+      - /var/freela/mongodb/data:/data/db
+    networks:
+      - api-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: {SOME-SECURE-USER}
+      MONGO_INITDB_ROOT_PASSWORD: {SOME-SECURE-PASSWD}
+
+volumes:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/{USER}/freela_app/views/
+      o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/{USER}/freela_app/dhparam/
+      o: bind
+      
+networks:
+  api-network:
+    driver: bridge

@@ -12,7 +12,5 @@ cp /etc/freela-backend/docker-compose.prd.yaml .
 docker stop $(docker ps -aq)
 docker rm $(docker ps -aq)
 
-# Start MongoDB
-docker-compose -f docker-compose.prd.yaml up -d mongodb
-# Build and start API
-docker-compose -f docker-compose.prd.yaml up -d --build api
+# Create all resources
+docker-compose -f docker-compose.prd.yaml up -d --force-recreate
